@@ -1,6 +1,8 @@
-# AWS home assignment from Kryon. 
+# Kryon AWS home assignment.
 
-the assignment was to program two lambda function codes  in AWS , such that first lambda is triggered from S3 bucket when uploading json file witch contains elements that formed from   phone number and message, it reads  all elements and send them to  SQS , the second lambda function receive all elements and send to each number SMS with the content of the message , and then add the phone number and the message content and last time we sent SMS in dynamo table , if an SMS was sent in the last 24 hours then I  do not send a new one.
+the assignment was to program two lambda functions in AWS. 
+1.	First lambda function is triggered from S3 bucket when uploading a json file which contains elements that contains well-formed phone number and a text message, the function parses the elements and send them to SQS service.
+2.	 Second lambda function receive all elements and send to each number SMS with the content of the message, and then add the phone number and the message content and  last time we sent SMS to  dynamo table, if an SMS was sent in the last 24 hours, then the function will not send a new SMS.
 
 ## required 
 1)  Account at AWS.
@@ -28,7 +30,7 @@ and to your user permission to execute lambda function.
 ## installation
 no need to install anything.  
 ## how to run: 
-upload in  S3 bucket appropriate json file and give the user permission to read it . 
+since lambda functions are triggered from diffrent services, there is no need to run lambda code , lambda code run automatically, and all what you have to do is to upload in  S3 bucket (first trigger) appropriate json file and give the user permission to read it .
 
 ## results
-every phone number in the json file will receive SMS with the content of the message if he didnt receive in less than 24 hours, and all the phone numbers with messages contents will be saved in messages dynamoDB table . 
+After uploading a JSON file to S3, the text will be sent via SMS to the related phone numbers in the file. The system will not send an  SMS to this user (phone number) if it has already sent an SMS to them within the last 24 hours. There will be a table in DynamoDB for messages that stores the phone number & the content of the message and the time of sending last SMS to the phone number .
